@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+      android:layout_width="match_parent" android:layout_height="match_parent"
+      android:orientation="vertical" android:gravity="center"
+      android:background="#1A1A2E" android:padding="32dp">
+      <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Incoming Call" android:textColor="#AAAAAA" android:textSize="16sp" />
+      <TextView android:id="@+id/tvCallerName" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_marginTop="20dp" android:text="Unknown" android:textColor="#FFFFFF"
+                android:textSize="30sp" android:textStyle="bold" android:gravity="center" />
+      <TextView android:id="@+id/tvCallerNumber" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_marginTop="8dp" android:text="" android:textColor="#AAAAAA" android:textSize="17sp" />
+      <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:gravity="center" android:layout_marginTop="70dp">
+                <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:orientation="vertical" android:gravity="center" android:layout_marginEnd="50dp">
+                              <Button android:id="@+id/btnReject" android:layout_width="72dp" android:layout_height="72dp"
+                                                android:text="X" android:textSize="26sp" android:textColor="#FFFFFF" android:backgroundTint="#E94560" />
+                              <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                                android:layout_marginTop="8dp" android:text="Reject" android:textColor="#AAAAAA" android:textSize="13sp" />
+                </LinearLayout>
+                <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:orientation="vertical" android:gravity="center">
+                              <Button android:id="@+id/btnAnswer" android:layout_width="72dp" android:layout_height="72dp"
+                                                android:text="V" android:textSize="26sp" android:textColor="#FFFFFF" android:backgroundTint="#4CAF50" />
+                              <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                                android:layout_marginTop="8dp" android:text="Answer" android:textColor="#AAAAAA" android:textSize="13sp" />
+                </LinearLayout>
+      </LinearLayout>
+</LinearLayout>
