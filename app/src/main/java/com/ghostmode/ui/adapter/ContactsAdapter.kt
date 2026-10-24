@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.ImageButton
+import android.widget.Button
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -22,7 +22,7 @@ class ContactsAdapter(
         val tvName: TextView = view.findViewById(R.id.tvContactName)
         val tvNumber: TextView = view.findViewById(R.id.tvContactNumber)
         val spinner: Spinner = view.findViewById(R.id.spinnerContactMessage)
-        val btnDelete: ImageButton = view.findViewById(R.id.btnDeleteContact)
+        val btnDelete: Button = view.findViewById(R.id.btnDeleteContact)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -36,21 +36,24 @@ class ContactsAdapter(
         holder.tvName.text = contact.displayName
         holder.tvNumber.text = contact.phoneNumber
 
-        val msgOptions = holder.itemView.context.resources.getStringArray(R.array.message_options)
-        val spinAdapter = ArrayAdapter(
+        val messages = holder.itemView.context.resources
+            .getStringArray(R.array.message_options)
+        val adapter = ArrayAdapter(
             holder.itemView.context,
             android.R.layout.simple_spinner_item,
-            msgOptions
+            messages
         )
-        spinAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        holder.spinner.adapter = spinAdapter
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        holder.spinner.adapter = adapter
         holder.spinner.setSelection(contact.messageIndex)
 
         holder.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(p: AdapterView<*>?, v: View?, pos: Int, id: Long) {
-                if (pos != contact.messageIndex) onMessageChange(contact, pos)
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, pos: Int, id: Long) {
+                if (pos != contact.messageIndex) {
+                    onMessageChange(contact, pos)
+                }
             }
-            override fun onNothingSelected(p: AdapterView<*>?) {}
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
         holder.btnDelete.setOnClickListener { onDelete(contact) }
@@ -59,18 +62,27 @@ class ContactsAdapter(
     override fun getItemCount() = contacts.size
 
     fun remove(contact: BlockedContact) {
-        val idx = contacts.indexOfFirst { it.phoneNumber == contact.phoneNumber }
-        if (idx >= 0) { contacts.removeAt(idx); notifyItemRemoved(idx) }
+        val idx = contacts.indexOf(contact)
+        if (idx >= 0) {
+            contacts.removeAt(idx)
+            notifyItemRemoved(idx)
+        }
     }
 
-    fun update(contact: BlockedContact) {
-        val idx = contacts.indexOfFirst { it.phoneNumber == contact.phoneNumber }
-        if (idx >= 0) { contacts[idx] = contact; notifyItemChanged(idx) }
+    fun update(newContacts: List<BlockedContact>) {
+        contacts.clear()
+        contacts.addAll(newContacts)
+        notifyDataSetChanged()
     }
 
     fun addOrUpdate(contact: BlockedContact) {
         val idx = contacts.indexOfFirst { it.phoneNumber == contact.phoneNumber }
-        if (idx >= 0) { contacts[idx] = contact; notifyItemChanged(idx) }
-        else { contacts.add(0, contact); notifyItemInserted(0) }
+        if (idx >= 0) {
+            contacts[idx] = contact
+            notifyItemChanged(idx)
+        } else {
+            contacts.add(contact)
+            notifyItemInserted(contacts.size - 1)
+        }
     }
 }
