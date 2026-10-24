@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GhostMode</string>
+    <string-array name="message_options">
+        <item>Abhi busy hoon, baad mein call karein</item>
+        <item>Main meeting mein hoon</item>
+        <item>Ghar par nahi hoon</item>
+        <item>Baad mein baat karte hain</item>
+        <item>Koi jawab nahi</item>
+    </string-array>
+</resources>
